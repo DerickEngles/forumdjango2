@@ -1,0 +1,21 @@
+Well, I am going to recreate something using the Django2 project as a base.
+
+O projeto futuro que quero fazer com Django é um sistema de Login com página principal, onde o usuário vai entrar, ter
+sua página com foto, nome de usuário, onde ele terá uma lista de amigos, ambiente para mandar mensagem para o admin,
+para um dos amigos (aquele formulário que fizemos para enviar mensagens) etc.
+
+Por hora, vou só refazer o projeto dois como uma espécie de Fórum, onde ao ínves de cadastrar produtos, cadastraremos
+usuário. Cada usuário poderá submeter e-mails pelo nosso forms e todos os usuários estarão listados na página index.
+Esse primeiro projeto será mais para mudar detalhes do Django 2 e treinar refazendo. Esse usuário necessita se cadastrar
+para utilizar o Fórum para o envio de mensagens.
+
+Dates about superuser: derick_engles
+password: @forumdjango97
+
+Ideia nova: só pode enviar mensagem quem for registrado e estiver logado. Posso exibir um outro template no local de
+index. Index só pode ser visualizada com os usuários do fórum que estiverem registrados
+
+
+Depois de completar o projeto de forma simples, faça uma os usuário inserirem e-mail, senha e se autenticarem para poder
+enviar mensagens. Inclusive que exista uma área de postagens compartilhada com o público, chat em tempo real entre dois
+usuários etc. Add um layout com botões que liga para outras páginas

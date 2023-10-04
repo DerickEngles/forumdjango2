@@ -1,0 +1,15 @@
+/* Apply styles to all images */
+img {
+    width: 100px; /* Set a fixed width for all images (adjust as needed) */
+    height: 100px; /* Set a fixed height for all images (adjust as needed) */
+    border: 2px solid #ccc; /* Add a border to images */
+    padding: 5px; /* Add some padding around images */
+    border-radius: 50%; /* Make all images completely round */
+}
+
+/* Apply styles to specific images with a class */
+.special-image {
+    border: 3px solid red; /* Red border for images with class "special-image" */
+    /* Keep the border-radius property for round shape */
+}
+
