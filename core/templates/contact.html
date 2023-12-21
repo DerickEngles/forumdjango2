@@ -7,12 +7,14 @@
     {% bootstrap_css %}
 </head>
 <body>
+    {% include '_navbar.html' %}
     <div class="container">
         <h1>Contato</h1>
         {% bootstrap_messages %} <!--me ajuda a passar mensagens para o contexto da página-->
         <form action="{% url 'message' %}" method="post" class="form" autocomplete="off">
             {% csrf_token %} <!--token validando as messagens que serão disparadas-->
-            {% bootstrap_form message_form %} <!--estamos passando message_form pelo contexto-->
+
+            {% bootstrap_form form %} <!--estamos passando message_form pelo contexto-->
 
             {% buttons %}
                 <button type="submit" class="btn btn-primary">Enviar mensagem</button>

@@ -1,0 +1,27 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Alterar dados da Postagem</title>
+    {% bootstrap_css %}
+</head>
+<body>
+    {% include '_navbar.html' %}
+    <div class="container">
+        <h1>Alterar dados da Postagem</h1>
+        <!--Na situação em que o action não estava sendo especificado, os dados estavam sendo retornados para a própria
+        url da página e quem é a origem da view updatepost?? A view updatepost. Por esse motivo, conseguimos acesso a
+        view e atualização de dados funcionava da mesma forma.-->
+        <form action="{% url 'updatepost' post.id %}" method="post" class="form" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Modificar</button>
+            {% endbuttons %}
+        </form>
+    </div>
+{% bootstrap_javascript jquery='full' %}
+</body>
+</html>

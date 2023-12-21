@@ -1,0 +1,25 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Postagem</title>
+    {% bootstrap_css %}
+</head>
+<body>
+    {% include '_navbar.html' %}
+    <div class="container">
+        <h1>Crie uma postagem</h1>
+        {% bootstrap_messages %}
+        <form action="{% url 'creatpost' %}" method="post" class="form" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %} <!--Aplica o padrão de formulário do bootstrap no nosso formulário-->
+
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Registrar postagem</button>
+            {% endbuttons %}
+        </form>
+    </div>
+{% bootstrap_javascript jquery='full'%}
+</body>
+</html>

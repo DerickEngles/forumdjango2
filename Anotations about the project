@@ -1,5 +1,6 @@
 Well, I am going to recreate something using the Django2 project as a base.
 
+# Version 1
 O projeto futuro que quero fazer com Django é um sistema de Login com página principal, onde o usuário vai entrar, ter
 sua página com foto, nome de usuário, onde ele terá uma lista de amigos, ambiente para mandar mensagem para o admin,
 para um dos amigos (aquele formulário que fizemos para enviar mensagens) etc.
@@ -12,10 +13,76 @@ para utilizar o Fórum para o envio de mensagens.
 Dates about superuser: derick_engles
 password: @forumdjango97
 
-Ideia nova: só pode enviar mensagem quem for registrado e estiver logado. Posso exibir um outro template no local de
-index. Index só pode ser visualizada com os usuários do fórum que estiverem registrados
+Version 2:
+- Feito
+# Os usuário necessitaram colocar um e-mail e senha para se registrarem.
+
+# Sistema de autenticação
+
+# criar um cabeçalho - um nav bar para as páginas do blog, com botões para as páginas. Nisso, veja se é possível criar
+um espaço para exibir o usuário autenticado e um botão para logout.
+
+# Agora teremos uma página de postagens que assim como a página inicial, poderá ser vista por todos, mas apenas
+usuários cadastrados podem realizar postagens.
+
+# Resolver problema de foto em index e posts- não está aparecendo o valor default que colocamos caso não exista foto.
+
+# Para em fazer o usuário ser logado ao se registrar
+
+# Em cada usuário teremos um dados para exibir a quantidade de postagens que possuem
+
+# Fiz o link no navbar para que o user consiga fazer alteração dos dados
+
+# Uma mensagem será exibida para o user anonymus que tentar acessar uma função permitda apenas para users cadastrados.
+O que desejamos era um alert a ser exibido em balão popup. Ele foi feito na view post, aquela que possui o botão.
+
+# Acrescentar uma página de recuperação de dados com base no e-mail cadastrado - vou mudar. Acho que vou tornar o nome
+de usuário único e isso será o suficiente. O nome de usuário e e-mail já são únicos.
+
+# Página para edição de posts e/ou botão para exclusão - Feito
+
+Observações:
+Os Post eram criados com foreign keys com os ids dos usuários, mas aqueles ids da base de dados do django e não aqueles
+ids que os usuário recebem ao serem criado no banco de dados. Perguntei para o chat o que, geralmente, acontece em
+situações reais:
+
+Em projetos reais, o registro de usuários pode ser feito tanto no banco de dados quanto na base de dados do Django, mas geralmente é feito apenas em um deles.
+
+O Django possui sua própria estrutura de autenticação e autorização que inclui um modelo de usuário (User). Quando você utiliza essa estrutura de autenticação do Django, os dados do usuário são armazenados na base de dados do Django, que é gerenciada pelo próprio Django, e geralmente é suficiente para a maioria dos casos.
+
+No entanto, em certos casos, pode ser necessário armazenar informações adicionais sobre o usuário ou estender os dados do usuário padrão fornecidos pelo Django. Nesses casos, você pode criar um modelo personalizado (como Register no seu caso) para armazenar essas informações extras e, portanto, precisará armazenar esses dados adicionais no banco de dados.
+
+Resumindo, em muitos casos, o registro é feito apenas na base de dados do Django (User), mas em situações onde informações extras são necessárias ou a estrutura padrão de usuário do Django é estendida, pode ser necessário fazer o registro tanto na base de dados do Django quanto em um banco de dados personalizado. O importante é considerar suas necessidades específicas de dados e funcionalidades ao decidir onde armazenar informações de usuários.
+
+Em projetos reais, eles configuram os ids dos usuários para coincidirem na base de dados do django com os do banco de
+dados ou não. Isso depende do nível de vinculação que eles desejam ter no projeto. Inclusivo, a primeira abordagem tende
+a ser mais trabalhosa. A abordagem que escolher deve ser pensada no sentido de que vou abrir possibilidades para os usu
+ários modificarem seus dados, o que pode acabar refletindo nisso.
 
 
-Depois de completar o projeto de forma simples, faça uma os usuário inserirem e-mail, senha e se autenticarem para poder
-enviar mensagens. Inclusive que exista uma área de postagens compartilhada com o público, chat em tempo real entre dois
-usuários etc. Add um layout com botões que liga para outras páginas
+
+
+Para entender o projeto:
+config - urls - models - forms - views - templates
+
+A especifcação do action nos templates é para direcionar os dados para alguma view assim que fornecido e remetidos pelo
+formulário. Contudo a não especificação do action faz com que os dados sejam fornecido para a própria url da página atual.
+
+Claro, o uso do `action` em um formulário determina para onde os dados do formulário serão enviados quando ele for submetido. Aqui estão alguns cenários em que você pode escolher entre especificar ou não o `action`:
+
+1. **Quando você está na mesma página da qual os dados serão enviados:** Se o formulário estiver na mesma página em que os dados devem ser enviados, não é necessário especificar o `action`. O formulário enviará os dados de volta para a própria URL da página atual.
+
+2. **Quando os dados do formulário são enviados para outra página/view:** Se os dados do formulário precisam ser processados por uma view diferente, você deve especificar o `action`. Isso direcionará o formulário para a URL da view responsável por processar os dados.
+
+Em relação ao `updatepost`, quando você não especifica o `action` no formulário, o formulário envia os dados de volta para a página atual, que é a mesma onde o formulário foi carregado. No caso do Django, isso significa que os dados são enviados de volta para a URL correspondente à view que renderizou o template `updatepost.html`. Isso ocorre porque a página foi carregada a partir da view `updatepost`, e quando o formulário é submetido sem um `action` especificado, ele envia os dados de volta para a mesma URL.
+
+Então, no contexto de usar ou não o `action`:
+
+- Se os dados do formulário devem ser processados pela mesma view que carregou a página, você geralmente não precisa especificar o `action`.
+- Se os dados devem ser processados por uma view diferente (ou seja, enviados para outra URL), você deve especificar o `action` com a URL correspondente a essa view.
+
+É importante entender a lógica de direcionamento de dados nos formulários para decidir quando usar ou não o `action`, garantindo que os dados sejam enviados para o local correto para processamento.
+
+Versão 3:
+
+# Se não ficar muito complicado, acrescentar um chat para que duas pessoas conversem.

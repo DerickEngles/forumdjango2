@@ -1,5 +1,6 @@
 {% load bootstrap4 %}
 {% load static %}
+{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,8 +10,11 @@
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
 <body>
+    {% include '_navbar.html' %}
     <div class="container">
         <h1>Fórum Django</h1>
+        {% bootstrap_messages %} <!--Para receber mensagem de sucesso no login ou de você não está logado, caso
+        um usuário anônimo tem acessar à página de postagens-->
 
         <table class="table table-dark">
             <thead>
@@ -19,10 +23,11 @@
                     <th scope="col">Imagem</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Número de Posts</th>
                 </tr>
             </thead>
             <tbody>
-                {% for register in registers %}
+                {% for register in registers %} <!--registers vem de views-->
                     <tr>
                         <!--<td scope="row"><img src="{% static register.photo.url %}" alt="{{ register.name }}"></td>-->
                         <td scope="row">{{ register.id }}</td>
@@ -32,8 +37,44 @@
                         alt é um texto alternativa caso a imagem não seja exibida. Nesse caso, estamos passando o nome do registrado
                         class special-image is inside of styles.css
                         -->
-                        <td scope="row">{{ register.name }}</td>
+                        <td scope="row">{{ register.username }}</td>
                         <td scope="row">{{ register.status }}</td>
+                        <!--
+                        Não é possível fazer a contagem que estou tentando fazer no template. Sendo assim, necessito
+                        faze-la antes e passar para o contexto da página, ou seja, preciso realizá-la na view.
+                        count: 0
+                        {% for post in posts %}
+                            {% if post.user_id == register.id %}
+                                count += 1
+                            {% endif %}
+                        {% endfor %}
+                        <td scope="row">{{ count }}</td>-->
+                        <td scope="row">{{ user_post_counts|get_item:register.id }}</td><!--A variável está sendo passada para
+                        contexto da página, sendo ela um dict, no qual vai receber o id do usuário na view index, sendo
+                        está sua chave para contabilizar a quantidade de posts por usuário para exibí-los. Tivemos que
+                        fazer
+
+                        O que fizemos foi criar um custom filter no Django para acessar dicionários diretamente nos
+                        templates. Vamos passar por cada passo:
+
+Criação do módulo custom_filters.py: Criamos um arquivo chamado custom_filters.py dentro do diretório do aplicativo do
+Django. Nele, registramos um filtro chamado get_item, que nos permite acessar elementos de um dicionário usando chaves
+diretamente no template.
+
+Registrar o filtro no template: No template em que queremos usar esse filtro, utilizamos {% load custom_filters %} para
+carregar os filtros personalizados, dando acesso ao get_item no código do template.
+
+Utilização do filtro: No trecho específico onde precisamos acessar o dicionário user_post_counts por meio da chave
+register.id, usamos {{ user_post_counts|get_item:register.id }}. Isso chama o filtro get_item, passando o dicionário
+user_post_counts e a chave register.id. Dentro do filtro, é chamado o método get() do dicionário, permitindo-nos
+acessar os valores pelo nome da chave.
+
+Essencialmente, esse processo nos permite acessar valores de dicionários em templates do Django de uma maneira mais
+direta e limpa, evitando a necessidade de criar lógica complexa nos templates.
+
+Fizemos isso, pois o Django não estava reconhecendo a forma como estavamos tentando fazer o acesso aos valore do dict,
+conforme fizemos para ser na view index para a contabilização do número de posts.
+-->
                     </tr>
                 {% endfor %}
             </tbody>

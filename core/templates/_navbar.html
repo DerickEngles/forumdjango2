@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">Fórum Django</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Página Inicial</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'posts' %}">Postagens</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{% url 'message' %}">Contato</a>
+        </li>
+      </ul>
+      <!--Abaixo faremos uma nova ul para ter os elementos de login a direita do navbar-->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-end">
+        {% if user.is_authenticated %}
+        <!--Explicação do pq é possível fazer o acesso de user em _navbar:
+
+        Quanto ao acesso a user na navbar, se você está exibindo informações do usuário (como nome de usuário e link de
+        logout) na navbar, é provável que o acesso a user seja feito pelo contexto global fornecido pelo Django para os
+        templates quando o usuário está autenticado, independentemente da página em que você está.-->
+          <li class="nav-item">
+            <span class="nav-link"> Usuário Logado: {{ user.username }} </span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'userdatachange' %}">Alterar dados</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Registre-se</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--Estava tendo um erro para encontrar as páginas, onde ao clicar nas diferentes opções de navbar, o endereço anterior
+era mantido ao invés de ser zerado, como em http://127.0.0.1:8000/login/contato/. Eu estava usando no href das opções
+as URL relativas que podem acabar levando a erros do tipo. O mais apropriado no caso é utilizar as URL absolutas ou as
+Django URL como foi feito em cada href-->
+
+ <!--Explicação do pq é possível fazer o acesso de user em _navbar:
+Quanto ao acesso a user na navbar, se você está exibindo informações do usuário (como nome de usuário e link de
+logout) na navbar, é provável que o acesso a user seja feito pelo contexto global fornecido pelo Django para os
+templates quando o usuário está autenticado, independentemente da página em que você está.-->

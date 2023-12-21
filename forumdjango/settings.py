@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''  # I took the secret key out in order to have security
+SECRET_KEY = 'django-insecure-3am(-2=*kw%@vhv57#flcqgxj#9xhzheoct_av4_f+_f3ybs(+'  # I took the secret key out in order to have security
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,10 +44,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',  # apropriado para autenticação
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # apropriado para autenticação
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'forumdjango',
         'USER': 'root',
-        'PASSWORD': '',  # You need to put the password of your own local database MySQL
+        'PASSWORD': '@database1997',  # You need to put the password of your own local database MySQL
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -131,6 +131,30 @@ MEDIA_ROOT = Path.joinpath(BASE_DIR, 'media')
 
 # Confi. de e-mail
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"  # Vai disparar um alerta no meu Terminal
+
+"""
+Estamos removendo a configuração abaixo, pois vamos utilizar um backend de autenticação personalizado
+Retomamos a configuração abaixo.
+"""
+# Adicionando a configuração para o backend de autenticação
+AUTHENTICATION_BACKEDNS = [
+    'django.contrib.auth.backends.ModelBackend'
+]
+"""
+# Defina o caminho para o seu modelo de usuário de usuário personalizado
+AUTH_USER_MODEL = 'core.Register'  # aqui especificamos o caminho do model de autenticação
+# Adicione o back-end de autenticação personalizado ao AUTHENTICATION_BACKENDS
+AUTHENTICATION_BACKENDS = ['core.backends.EmailBackend']  # aqui especificamos qual o nome do modelo de autenticação
+# personalizado que desejamos usar.
+"""
+
+# Defina a URL de redirecionamento para o login
+LOGIN_URL = 'index'  # Quando o usuário tentar acessar uma página que necessita de autenticação, ele será
+# redirecionado para index - A única página que necessita de autenticação é a de criação de posts. Ao invés de
+# redirecionar o anonymususer, vou criar um pop indicando que ele se registre ou log caso já tenha uma conta.
+LOGIN_REDIRECT_URL = 'index'  # nome que atribuímos a rota principal em url em core. O usuário será redirecionado para
+# index quando estiver autenticado.
+LOGOUT_REDIRECT_URL = 'index'  # O mesmo ocorrerá ao realizar logout, o usuário será levado para index
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

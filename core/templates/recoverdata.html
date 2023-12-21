@@ -1,0 +1,26 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Recuperar Dados</title>
+    {% bootstrap_css %}
+</head>
+<body>
+    {% include '_navbar.html' %}
+    <div class="container">
+        <h1>Recuperar Dados de Acesso</h1>
+        {% bootstrap_messages %} <!--me ajuda a passar mensagens para o contexto da página-->
+        <form action="{% url 'recoverdata' %}" method="post" class="form" autocomplete="off">
+            {% csrf_token %} <!--token validando as messagens que serão disparadas-->
+
+            {% bootstrap_form form %} <!--estamos passando message_form pelo contexto-->
+
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Realizar Solicitação</button>
+            {% endbuttons %}
+        </form>
+    </div>
+{% bootstrap_javascript jquery='full'%}
+</body>
+</html>

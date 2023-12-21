@@ -1,0 +1,29 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Acesso</title>
+    {% bootstrap_css %}
+</head>
+<body>
+    {% include '_navbar.html' %}
+    <div class="container">
+        <h1>Login</h1>
+        {% bootstrap_messages %}
+        <form action="{% url 'login' %}" method="post" class="form" autocomplete="off"> <!--enctype não é necessário, pois não vamos fazer upload de arquivos-->
+            {% csrf_token %}
+            {% bootstrap_form form %}
+
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Acessar</button> <!--O botão é do tipo submit, pois
+                estamos submetendo dados pelo formulário para nossa view-->
+                <br> <!--usei os break rows para ter espaçamento entre os botões-->
+                <a href="{% url 'recoverdata' %}"><button type="button" class="btn btn-secondary mt-2">Recuperar usuário e senha</button></a>
+                <!--secondary é configuração do próprio bootstrap para deixar o botão cinza.-->
+            {% endbuttons %}
+        </form>
+    </div>
+{% bootstrap_javascript jquery='full' %}
+</body>
+</html>

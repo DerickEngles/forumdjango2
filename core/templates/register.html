@@ -7,11 +7,15 @@
     {% bootstrap_css %}
 </head>
 <body>
+    {% include '_navbar.html' %}
     <div class="container">
         <h1>Página de Registro</h1>
         {% bootstrap_messages %}
         <form action="{% url 'register' %}" method="post" class="form" autocomplete="off" enctype="multipart/form-data">
-            {% csrf_token %}
+            {% csrf_token %} <!--Quando sinalizamos a url, estamos conectando o HTML com a view e a view, por sua vez,
+             se conecta ao models e ao forms.
+
+             O atributo enctype sinaliza que estaremos remetendo um arquivo via upload pelo formulário para o backend-->
 
             {% bootstrap_form form %}
 
